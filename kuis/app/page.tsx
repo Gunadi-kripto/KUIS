@@ -1,66 +1,47 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// app/page.tsx
+import AddReviewForm from './components/AddReviewForm';
+import ReviewList from './components/ReviewList'; // <--- 1. Import ini
 
-export default function Home() {
+export default function HomePage() {
+  const nim = "2104011234"; 
+  const nama = "Gunadi Setiawan"; 
+  
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="container py-5">
+      {/* Header (Biarkan seperti sebelumnya) */}
+      <div className="p-5 mb-5 bg-primary text-white rounded-3 shadow-lg bg-gradient">
+        {/* ... (kode header lama biarkan saja) ... */}
+        <h1 className="display-4 fw-bold">Music Explorer 🎵</h1>
+        <p className="lead">Halo, {nama} ({nim})</p>
+      </div>
+
+      <div className="row justify-content-center">
+        <div className="col-lg-8">
+          <div className="text-center mb-4">
+            <h2 className="fw-bold text-dark">Mulai Ulas Album</h2>
+          </div>
+          
+          {/* Form Input */}
+          <div className="shadow rounded-3 overflow-hidden bg-white mb-5">
+             <AddReviewForm />
+          </div>
+
+          <hr className="my-5" />
+
+          {/* List Ulasan */}
+          <div className="text-center mb-4">
+            <h3 className="fw-bold text-dark">Daftar Ulasan Saya</h3>
+          </div>
+          
+          {/* --- 2. Panggil Komponen List di sini --- */}
+          <ReviewList />
+          
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+      
+      <footer className="mt-5 text-center text-muted">
+        <p>&copy; 2025 {nama}</p>
+      </footer>
+    </main>
   );
 }

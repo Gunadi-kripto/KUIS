@@ -1,0 +1,21 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Ini model yang tadi hilang
+model Review {
+  id          Int      @id @default(autoincrement())
+  albumTitle  String
+  artistName  String
+  rating      Int
+  reviewText  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

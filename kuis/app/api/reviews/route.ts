@@ -4,17 +4,15 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// 1. Fungsi untuk MENYIMPAN data (POST)
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json(); // Ambil data yang dikirim user
+    const body = await req.json(); 
     
-    // Simpan ke database
     const newReview = await prisma.review.create({
       data: {
         albumTitle: body.albumTitle,
         artistName: body.artistName,
-        rating: parseInt(body.rating), // Pastikan rating jadi angka
+        rating: parseInt(body.rating), 
         reviewText: body.reviewText,
       },
     });
@@ -25,10 +23,9 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// 2. Fungsi untuk MENGAMBIL data (GET)
 export async function GET() {
   const reviews = await prisma.review.findMany({
-    orderBy: { createdAt: 'desc' } // Urutkan dari yang terbaru
+    orderBy: { createdAt: 'desc' } 
   });
   return NextResponse.json(reviews);
 }

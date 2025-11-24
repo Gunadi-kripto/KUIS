@@ -1,6 +1,7 @@
 // app/page.tsx
 import AddReviewForm from './components/AddReviewForm';
-import ReviewList from './components/ReviewList'; // <--- 1. Import ini
+import ReviewList from './components/ReviewList'; 
+import Link from 'next/link';
 
 export default function HomePage() {
   const nim = "2104011234"; 
@@ -33,7 +34,6 @@ export default function HomePage() {
             <h3 className="fw-bold text-dark">Daftar Ulasan Saya</h3>
           </div>
           
-          {/* --- 2. Panggil Komponen List di sini --- */}
           <ReviewList />
           
         </div>

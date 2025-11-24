@@ -2,9 +2,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link'; // Untuk navigasi ke halaman Edit/Detail nanti
+import Link from 'next/link'; 
 
-// Tipe data sesuai database kita
 type Review = {
   id: number;
   albumTitle: string;
@@ -17,14 +16,13 @@ export default function ReviewList() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Ambil data saat halaman dibuka
   useEffect(() => {
     fetchReviews();
   }, []);
 
   const fetchReviews = async () => {
     try {
-      const res = await fetch('/api/reviews'); // Panggil API GET yang kita buat awal tadi
+      const res = await fetch('/api/reviews'); 
       const data = await res.json();
       setReviews(data);
       setLoading(false);
@@ -62,17 +60,14 @@ export default function ReviewList() {
               <p className="card-text mt-3 text-secondary">"{review.reviewText}"</p>
               
               <div className="d-flex gap-2 mt-4">
-                {/* Tombol Detail (Soal 4a) - Nanti kita buat halamannya */}
                 <Link href={`/review/${review.id}`} className="btn btn-sm btn-info text-white">
                   Detail
                 </Link>
 
-                {/* Tombol Edit (Soal 3b) - Nanti kita buat halamannya */}
                 <Link href={`/edit/${review.id}`} className="btn btn-sm btn-outline-primary">
                   Edit
                 </Link>
 
-                {/* Tombol Delete (Soal 3b) - Sudah berfungsi */}
                 <button 
                   onClick={() => handleDelete(review.id)} 
                   className="btn btn-sm btn-outline-danger"

@@ -4,20 +4,64 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// Fungsi untuk MENGHAPUS data (DELETE)
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+// Next.js 15: params adalah Promise
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+// 1. GET: Ambil data (Dipakai halaman Edit)
+export async function GET(req: NextRequest, props: Props) {
   try {
+    const params = await props.params; // <--- INI KUNCINYA (AWAIT)
+    const id = parseInt(params.id);
+
+    const review = await prisma.review.findUnique({
+      where: { id },
+    });
+
+    if (!review) return NextResponse.json({ message: 'Tidak ditemukan' }, { status: 404 });
+
+    return NextResponse.json(review);
+  } catch (error) {
+    return NextResponse.json({ message: 'Error' }, { status: 500 });
+  }
+}
+
+// 2. PUT: Update data (Dipakai saat tombol Simpan Edit diklik)
+export async function PUT(req: NextRequest, props: Props) {
+  try {
+    const params = await props.params; // <--- WAJIB AWAIT
+    const id = parseInt(params.id);
+    const body = await req.json();
+
+    const updated = await prisma.review.update({
+      where: { id },
+      data: {
+        albumTitle: body.albumTitle,
+        artistName: body.artistName,
+        rating: parseInt(body.rating),
+        reviewText: body.reviewText,
+      },
+    });
+
+    return NextResponse.json(updated);
+  } catch (error) {
+    return NextResponse.json({ message: 'Gagal Update' }, { status: 500 });
+  }
+}
+
+// 3. DELETE: Hapus data (Dipakai tombol Delete di Home)
+export async function DELETE(req: NextRequest, props: Props) {
+  try {
+    const params = await props.params; // <--- WAJIB AWAIT
     const id = parseInt(params.id);
 
     await prisma.review.delete({
-      where: { id: id },
+      where: { id },
     });
 
-    return NextResponse.json({ message: 'Berhasil dihapus' }, { status: 200 });
+    return NextResponse.json({ message: 'Berhasil dihapus' });
   } catch (error) {
-    return NextResponse.json({ message: 'Gagal menghapus', error }, { status: 500 });
+    return NextResponse.json({ message: 'Gagal Hapus' }, { status: 500 });
   }
 }

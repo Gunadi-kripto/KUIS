@@ -1,5 +1,5 @@
 // app/components/AddReviewForm.tsx
-'use client'; // Wajib karena kita pakai useState (interaksi user)
+'use client'; 
 
 import { useState } from 'react';
 
@@ -23,11 +23,9 @@ export default function AddReviewForm() {
 
       if (res.ok) {
         setStatus('Berhasil disimpan! ✅');
-        // Reset form
         setAlbumTitle('');
         setArtistName('');
         setReviewText('');
-        // Refresh halaman agar data baru muncul (opsional)
         window.location.reload();
       } else {
         setStatus('Gagal menyimpan ❌');

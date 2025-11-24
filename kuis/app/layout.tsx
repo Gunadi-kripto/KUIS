@@ -1,5 +1,5 @@
 // app/layout.tsx
-import 'bootstrap/dist/css/bootstrap.min.css'; // <--- Ini import WAJIB buat Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 import './globals.css';
 import type { Metadata } from 'next';
 

@@ -19,9 +19,7 @@ export default function EditPage({ params }: { params: Promise<{ id: string }> }
   });
   const [loading, setLoading] = useState(true);
 
-  // Ambil data lama
   useEffect(() => {
-    // Kita fetch ke API yang baru saja kita perbaiki di atas
     fetch(`/api/reviews/${id}`)
       .then((res) => {
         if (!res.ok) throw new Error('Gagal fetch');

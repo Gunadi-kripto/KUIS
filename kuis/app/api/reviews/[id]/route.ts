@@ -4,12 +4,10 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// Next.js 15: params adalah Promise
 type Props = {
   params: Promise<{ id: string }>;
 };
 
-// 1. GET: Ambil data (Dipakai halaman Edit)
 export async function GET(req: NextRequest, props: Props) {
   try {
     const params = await props.params; // <--- INI KUNCINYA (AWAIT)
@@ -27,10 +25,9 @@ export async function GET(req: NextRequest, props: Props) {
   }
 }
 
-// 2. PUT: Update data (Dipakai saat tombol Simpan Edit diklik)
 export async function PUT(req: NextRequest, props: Props) {
   try {
-    const params = await props.params; // <--- WAJIB AWAIT
+    const params = await props.params;
     const id = parseInt(params.id);
     const body = await req.json();
 
@@ -50,10 +47,9 @@ export async function PUT(req: NextRequest, props: Props) {
   }
 }
 
-// 3. DELETE: Hapus data (Dipakai tombol Delete di Home)
 export async function DELETE(req: NextRequest, props: Props) {
   try {
-    const params = await props.params; // <--- WAJIB AWAIT
+    const params = await props.params; 
     const id = parseInt(params.id);
 
     await prisma.review.delete({
